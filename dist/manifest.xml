@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
+  <Id>4def6f31-9951-4181-b7b2-a19081cc01eb</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Contoso</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Додаткові виплати"/>
+  <Description DefaultValue="Надбудова, яка допомагає пережити період виплат"/>
+  <IconUrl DefaultValue="https://www.contoso.com/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://www.contoso.com/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://www.contoso.com/help"/>
+  <AppDomains>
+    <AppDomain>https://localhost:3005</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Workbook"/>
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://www.contoso.com/medical.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabAutomate">
+              <Group id="CommandsGroup">
+                <Label resid="CommandsGroup.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                </Icon>
+                <Control xsi:type="Button" id="SummaryTaskpaneButton">
+                  <Label resid="SummaryTaskpaneButton.Label"/>
+                  <Supertip>
+                    <Title resid="SummaryTaskpaneButton.Label"/>
+                    <Description resid="SummaryTaskpaneButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="SummaryPayrollIcon.16x16"/>
+                    <bt:Image size="32" resid="SummaryPayrollIcon.32x32"/>
+                    <bt:Image size="80" resid="SummaryPayrollIcon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <SourceLocation resid="SummaryTaskpaneButton.Url"/>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="CheckMedicalButton">
+                  <Label resid="CheckMedicalButton.Label"/>
+                  <Supertip>
+                    <Title resid="CheckMedicalButton.Label"/>
+                    <Description resid="CheckMedicalButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="MedicalIcon.16x16"/>
+                    <bt:Image size="32" resid="MedicalIcon.32x32"/>
+                    <bt:Image size="80" resid="MedicalIcon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>Medical</TaskpaneId>
+                    <SourceLocation resid="MedicalTaskpane.Url"/>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="CheckInstructorsButton">
+                  <Label resid="CheckInstructorsButton.Label"/>
+                  <Supertip>
+                    <Title resid="CheckInstructorsButton.Label"/>
+                    <Description resid="CheckInstructorsButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="InstructorsIcon.16x16"/>
+                    <bt:Image size="32" resid="InstructorsIcon.32x32"/>
+                    <bt:Image size="80" resid="InstructorsIcon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>Instructors</TaskpaneId>
+                    <SourceLocation resid="InstructorsTaskpane.Url"/>
+                  </Action>
+                </Control>                
+                <Control xsi:type="Button" id="AccrualTaskpaneButton">
+                  <Label resid="AccrualTaskpaneButton.Label"/>
+                  <Supertip>
+                    <Title resid="AccrualTaskpaneButton.Label"/>
+                    <Description resid="AccrualTaskpaneButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="AccrualIcon.16x16"/>
+                    <bt:Image size="32" resid="AccrualIcon.32x32"/>
+                    <bt:Image size="80" resid="AccrualIcon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>AccrualButtonId1</TaskpaneId>
+                    <SourceLocation resid="AccrualTaskpaneButton.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://www.contoso.com/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://www.contoso.com/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://www.contoso.com/assets/icon-80.png"/>
+        <bt:Image id="MedicalIcon.16x16" DefaultValue="https://www.contoso.com/assets/medical-16.png"/>
+        <bt:Image id="MedicalIcon.32x32" DefaultValue="https://www.contoso.com/assets/medical-32.png"/>
+        <bt:Image id="MedicalIcon.80x80" DefaultValue="https://www.contoso.com/assets/medical-80.png"/>
+        <bt:Image id="SummaryPayrollIcon.16x16" DefaultValue="https://www.contoso.com/assets/payroll-16.png"/>
+        <bt:Image id="SummaryPayrollIcon.32x32" DefaultValue="https://www.contoso.com/assets/payroll-32.png"/>
+        <bt:Image id="SummaryPayrollIcon.80x80" DefaultValue="https://www.contoso.com/assets/payroll-80.png"/>
+        <bt:Image id="InstructorsIcon.16x16" DefaultValue="https://www.contoso.com/assets/instructors-16.png"/>
+        <bt:Image id="InstructorsIcon.32x32" DefaultValue="https://www.contoso.com/assets/instructors-32.png"/>
+        <bt:Image id="InstructorsIcon.80x80" DefaultValue="https://www.contoso.com/assets/instructors-80.png"/>
+        <bt:Image id="AccrualIcon.16x16" DefaultValue="https://www.contoso.com/assets/70-16.png"/>
+        <bt:Image id="AccrualIcon.32x32" DefaultValue="https://www.contoso.com/assets/70-32.png"/>
+        <bt:Image id="AccrualIcon.80x80" DefaultValue="https://www.contoso.com/assets/70-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://www.contoso.com/commands.html"/>
+        <bt:Url id="MedicalTaskpane.Url" DefaultValue="https://www.contoso.com/medical.html"/>
+        <bt:Url id="InstructorsTaskpane.Url" DefaultValue="https://www.contoso.com/instructors.html"/>
+        <bt:Url id="SummaryTaskpaneButton.Url" DefaultValue="https://www.contoso.com/taskpane.html"/>
+        <bt:Url id="AccrualTaskpaneButton.Url" DefaultValue="https://www.contoso.com/accrual.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="Додаткові виплати"/>
+        <bt:String id="CheckMedicalButton.Label" DefaultValue="Медична відомість"/>
+        <bt:String id="CheckInstructorsButton.Label" DefaultValue="Відомість інструкторів"/>
+        <bt:String id="PaymentsTab.Label" DefaultValue="Payments"/>
+        <bt:String id="SummaryTaskpaneButton.Label" DefaultValue="Фінальна відомість"/>
+        <bt:String id="AccrualTaskpaneButton.Label" DefaultValue="70"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded successfully. Go to the HOME tab and click the 'Show Task Pane' button to get started."/>
+        <bt:String id="CheckMedicalButton.Tooltip" DefaultValue="Створити медичну відомість"/>
+        <bt:String id="CheckInstructorsButton.Tooltip" DefaultValue="Створити відомість інструкторів"/>
+        <bt:String id="SummaryTaskpaneButton.Tooltip" DefaultValue="Перевірити фінальну відомість"/>
+        <bt:String id="AccrualTaskpaneButton.Tooltip" DefaultValue="Генерує загальну відомість і вставку в наказ"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
