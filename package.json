@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "office-addin": "^0.0.1",
+    "office-addin-debugging": "^6.0.6"
+  },
+  "scripts": {
+    "start": "office-addin-debugging start ./docs/manifest.xml"
+  }
+}
