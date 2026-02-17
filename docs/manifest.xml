@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
   <Id>4def6f31-9951-4181-b7b2-a19081cc01eb</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.0.0.2</Version>
   <ProviderName>Contoso</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Додаткові виплати"/>
@@ -102,6 +102,22 @@
                     <SourceLocation resid="AccrualTaskpaneButton.Url"/>
                   </Action>
                 </Control>
+                <Control xsi:type="Button" id="AuditTaskpaneButton">
+                  <Label resid="AuditTaskpaneButton.Label"/>
+                  <Supertip>
+                    <Title resid="AuditTaskpaneButton.Label"/>
+                    <Description resid="AuditTaskpaneButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="AuditIcon.16x16"/>
+                    <bt:Image size="32" resid="AuditIcon.32x32"/>
+                    <bt:Image size="80" resid="AuditIcon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>AuditButtonId1</TaskpaneId>
+                    <SourceLocation resid="AuditTaskpaneButton.Url"/>
+                  </Action>
+                </Control>
               </Group>
             </OfficeTab>
           </ExtensionPoint>
@@ -125,6 +141,9 @@
         <bt:Image id="AccrualIcon.16x16" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/assets/70-16.png"/>
         <bt:Image id="AccrualIcon.32x32" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/assets/70-32.png"/>
         <bt:Image id="AccrualIcon.80x80" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/assets/70-80.png"/>
+        <bt:Image id="AuditIcon.16x16" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/assets/audit-16.png"/>
+        <bt:Image id="AuditIcon.32x32" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/assets/audit-32.png"/>
+        <bt:Image id="AuditIcon.80x80" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/assets/audit-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
@@ -133,6 +152,7 @@
         <bt:Url id="InstructorsTaskpane.Url" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/instructors.html"/>
         <bt:Url id="SummaryTaskpaneButton.Url" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/taskpane.html"/>
         <bt:Url id="AccrualTaskpaneButton.Url" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/accrual.html"/>
+        <bt:Url id="AuditTaskpaneButton.Url" DefaultValue="https://sergkornienko.github.io/payments-add-in-exel/audit.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
@@ -142,6 +162,7 @@
         <bt:String id="PaymentsTab.Label" DefaultValue="Payments"/>
         <bt:String id="SummaryTaskpaneButton.Label" DefaultValue="Відомість"/>
         <bt:String id="AccrualTaskpaneButton.Label" DefaultValue="70"/>
+        <bt:String id="AuditTaskpaneButton.Label" DefaultValue="Аудит"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded successfully. Go to the HOME tab and click the 'Show Task Pane' button to get started."/>
@@ -149,6 +170,7 @@
         <bt:String id="CheckInstructorsButton.Tooltip" DefaultValue="Створити відомість інструкторів"/>
         <bt:String id="SummaryTaskpaneButton.Tooltip" DefaultValue="Перевірити фінальну відомість"/>
         <bt:String id="AccrualTaskpaneButton.Tooltip" DefaultValue="Генерує загальну відомість і вставку в наказ"/>
+        <bt:String id="AuditTaskpaneButton.Tooltip" DefaultValue="Аудит"/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
