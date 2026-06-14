@@ -5,7 +5,7 @@ export const getPayrollReportTableSchema = (payload: Partial<TableSchema> = {}):
   fields: [
     { name: "militaryRank", column: "A" },
     { name: "fullName", column: "B" },
-    { name: "dates", column: "C" },
+    { name: "dates", column: "C", type: "date" as const },
   ],
   ...payload,
 });
