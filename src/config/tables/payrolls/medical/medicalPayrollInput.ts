@@ -5,6 +5,6 @@ export const MEDICAL_PAYROLL_INPUT_SCHEMA: TableSchema = {
   fields: [
     { name: "militaryRank", column: "A" },
     { name: "fullName", column: "B" },
-    { name: "dates", column: "C" },
+    { name: "dates", column: "C", type: "date" as const },
   ],
 };

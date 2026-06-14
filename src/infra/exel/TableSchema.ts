@@ -4,6 +4,7 @@ export interface FieldSchema {
   merge?: { rows: number; columns: string };
   styleId?: string;
   rowShift?: number;
+  type?: 'string' | 'number' | 'date';
 }
 
 export interface PredefinedRenders {
