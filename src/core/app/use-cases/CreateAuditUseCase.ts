@@ -28,13 +28,15 @@ export class CreateAuditUseCase {
   }
 
   async createParticipationCertificate(row: string): Promise<UseCaseResult> {
-    const values = await this.tableReader.read();
-    const rawRowData = values[Number(row) - 2];
-    const dateRangesMap = this.extractDateRanges(rawRowData);
+    return handleError(async () => {
+      const values = await this.tableReader.read();
+      const rawRowData = values[Number(row) - 2];
+      const dateRangesMap = this.extractDateRanges(rawRowData);
 
-    await this.createDocument(Serviceman.FromRawExtended(rawRowData), dateRangesMap);
+      await this.createDocument(Serviceman.FromRawExtended(rawRowData), dateRangesMap);
 
-    return UseCaseResult.Ok();
+      return UseCaseResult.Ok();
+    });
   }
 
   private calculateSum({ values, header }: SelectedValues<RawPayrollData>): number {

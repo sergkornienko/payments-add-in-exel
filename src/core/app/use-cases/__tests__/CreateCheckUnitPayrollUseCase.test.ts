@@ -2,6 +2,7 @@ import { CreateCheckUnitPayrollUseCase } from "../CreateCheckUnitPayrollUseCase"
 import { UseCaseResult } from "../UseCaseResult";
 import { MonthStringSchema } from "../validation/RawInstructorsDataValidation";
 
+
 const mockPayrollTableReader = {
   read: jest.fn(),
 };
