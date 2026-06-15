@@ -2,7 +2,7 @@ import { CreateCheckUnitPayrollUseCase } from "../CreateCheckUnitPayrollUseCase"
 import { UseCaseResult } from "../UseCaseResult";
 import { MonthStringSchema } from "../validation/RawInstructorsDataValidation";
 
-// Mock dependencies
+
 const mockPayrollTableReader = {
   read: jest.fn(),
 };
@@ -47,14 +47,14 @@ describe("CreateCheckUnitPayrollUseCase", () => {
         {
           taxPayerId: "1234567890",
           fullName: "Іванов Іван Іванович",
-          militaryRank: "полковник", // Added required militaryRank field
+          militaryRank: "полковник",
           "01.09.2024": 100,
         },
       ];
       const reportData = [
         {
           fullName: "Іванов Іван Іванович",
-          militaryRank: "полковник", // Added required militaryRank field
+          militaryRank: "полковник",
           dates: "01.09.2024",
         },
       ];
@@ -81,7 +81,6 @@ describe("CreateCheckUnitPayrollUseCase", () => {
     it("should return validation error when monthAndYear is invalid", async () => {
       const result = await useCase.checkUnitPayroll("invalid-month");
 
-      // MonthStringSchema.parse will throw ZodError, which handleError should catch
       expect(result.isError()).toBeTruthy();
     });
 
