@@ -71,28 +71,31 @@ describe("PayrollPeriodResolver.", () => {
       expect(dateRanges![1].endDate).toBe("04.01.2026");
     });
 
-    it("handles value 170 and splits to 100 + 70", () => {
+    it("handles value 170 as a single value (does not split)", () => {
       // @ts-ignore
       const row = makeRow([170, 170, 70, 100]);
       const ranges = resolver.extractRangesFromRawPayrollItem(row, 4, "01.2026");
 
-      expect(ranges.get(100)).toHaveLength(2);
-      expect(ranges.get(70)).toHaveLength(2);
+      // We expect 170 to be treated as a single value, so two consecutive 170s become one range.
+      expect(ranges.get(170)).toHaveLength(1);
+      // 70 and 100 are single days, so one range each.
+      expect(ranges.get(70)).toHaveLength(1);
+      expect(ranges.get(100)).toHaveLength(1);
 
-      const dateRanges100 = ranges.get(100);
-      const dateRanges70 = ranges.get(70);
+      // Check the 170 range: from day1 to day2 (01.01.2026 to 02.01.2026)
+      const dateRanges170 = ranges.get(170)!;
+      expect(dateRanges170[0].startDate).toBe("01.01.2026");
+      expect(dateRanges170[0].endDate).toBe("02.01.2026");
 
-      expect(dateRanges100![0].startDate).toBe("01.01.2026");
-      expect(dateRanges100![0].endDate).toBe("02.01.2026");
+      // Check the 70 range: day3 (03.01.2026)
+      const dateRanges70 = ranges.get(70)!;
+      expect(dateRanges70[0].startDate).toBe("03.01.2026");
+      expect(dateRanges70[0].endDate).toBe("03.01.2026");
 
-      expect(dateRanges100![1].startDate).toBe("04.01.2026");
-      expect(dateRanges100![1].endDate).toBe("04.01.2026");
-
-      expect(dateRanges70![0].startDate).toBe("01.01.2026");
-      expect(dateRanges70![0].endDate).toBe("02.01.2026");
-
-      expect(dateRanges70![1].startDate).toBe("03.01.2026");
-      expect(dateRanges70![1].endDate).toBe("03.01.2026");
+      // Check the 100 range: day4 (04.01.2026)
+      const dateRanges100 = ranges.get(100)!;
+      expect(dateRanges100[0].startDate).toBe("04.01.2026");
+      expect(dateRanges100[0].endDate).toBe("04.01.2026");
     });
 
     it("returns empty map when no payroll values", () => {
@@ -132,29 +135,32 @@ describe("PayrollPeriodResolver.", () => {
       expect(payrollsByServiceman.get("456")).toHaveLength(1);
     });
 
-    it("splits value 170 into 100 + 70 correctly", () => {
+    it("not splits value 170 into 100 + 70 correctly", () => {
       // @ts-ignore
-      const row = makeRow([30, 170, 170, 100], { taxPayerId: "123" });
+      const row = makeRow([30, 170, 170, 70, 100, 170], { taxPayerId: "123" });
 
-      const ranges = resolver.extractRangesFromRawPayrollItem(row, 4, "01.2026");
+      const ranges = resolver.extractRangesFromRawPayrollItem(row, 6, "01.2026");
 
-      // Get ranges for 100 and 70
+      const dateRanges170 = ranges.get(170)!;
       const dateRanges100 = ranges.get(100)!;
       const dateRanges70 = ranges.get(70)!;
       const dateRanges30 = ranges.get(30)!;
 
-      // Each PayrollValue should have the correct number of ranges
-      expect(dateRanges100).toHaveLength(2);
+      expect(dateRanges170).toHaveLength(2);
+      expect(dateRanges100).toHaveLength(1);
       expect(dateRanges70).toHaveLength(1);
       expect(dateRanges30).toHaveLength(1);
 
-      expect(dateRanges100[0].startDate).toBe("02.01.2026");
-      expect(dateRanges100[0].endDate).toBe("03.01.2026");
-      expect(dateRanges100[1].startDate).toBe("04.01.2026");
-      expect(dateRanges100[1].endDate).toBe("04.01.2026");
+      expect(dateRanges170[0].startDate).toBe("02.01.2026");
+      expect(dateRanges170[0].endDate).toBe("03.01.2026");
+      expect(dateRanges170[1].startDate).toBe("06.01.2026");
+      expect(dateRanges170[1].endDate).toBe("06.01.2026");
 
-      expect(dateRanges70[0].startDate).toBe("02.01.2026");
-      expect(dateRanges70[0].endDate).toBe("03.01.2026");
+      expect(dateRanges100[0].startDate).toBe("05.01.2026");
+      expect(dateRanges100[0].endDate).toBe("05.01.2026");
+
+      expect(dateRanges70[0].startDate).toBe("04.01.2026");
+      expect(dateRanges70[0].endDate).toBe("04.01.2026");
 
       expect(dateRanges30[0].startDate).toBe("01.01.2026");
       expect(dateRanges30[0].endDate).toBe("01.01.2026");
