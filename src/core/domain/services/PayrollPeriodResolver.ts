@@ -50,7 +50,7 @@ export class PayrollPeriodResolver {
       else if (rangeStart !== null && currentValue !== rangeValue) {
         const rangeEnd = `${normalizeDay(day - 1)}.${monthStr}`;
         if (rangeValue) {
-          this.addRangeWithSplit(ranges, rangeValue, rangeStart, rangeEnd);
+          this.addRange(ranges, rangeValue, rangeStart, rangeEnd);
         }
 
         // Start new range if current value is not null
@@ -64,7 +64,7 @@ export class PayrollPeriodResolver {
       }
 
       if (isLastDay && rangeStart && rangeValue) {
-        this.addRangeWithSplit(ranges, rangeValue, rangeStart, currentDate);
+        this.addRange(ranges, rangeValue, rangeStart, currentDate);
       }
     }
 
@@ -99,25 +99,14 @@ export class PayrollPeriodResolver {
     }
   }
 
-  private addRangeWithSplit(
+  private addRange(
     ranges: Map<number, DateRange[]>,
     value: number,
     startDate: string,
     endDate: string
   ): void {
     const dateRange = new DateRange(startDate, endDate);
-
-    if (value === 170) {
-      // Split 170 into 100 and 70
-      const ranges100 = ranges.get(100) || [];
-      ranges.set(100, [...ranges100, dateRange]);
-
-      const ranges70 = ranges.get(70) || [];
-      ranges.set(70, [...ranges70, dateRange]);
-    } else {
-      // Regular value (100, 70, 50, 30, etc.)
-      const existingRanges = ranges.get(value) || [];
-      ranges.set(value, [...existingRanges, dateRange]);
-    }
+    const existingRanges = ranges.get(value) || [];
+    ranges.set(value, [...existingRanges, dateRange]);
   }
 }
