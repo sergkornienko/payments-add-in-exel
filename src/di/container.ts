@@ -67,8 +67,17 @@ export class Container {
     const inputPayrollSchema = getSummaryPayrollSchema(monthAndYear, { startRow });
     const payrollReader = new ExcelReader<RawPayrollData>(inputPayrollSchema);
 
+    const report10TableReader = new ExcelReader<RawPayrollReportItemData>(
+      getPayrollReportTableSchema({ sheetName: "10" })
+    );
+    const report20TableReader = new ExcelReader<RawPayrollReportItemData>(
+      getPayrollReportTableSchema({ sheetName: "20" })
+    );
     const report30TableReader = new ExcelReader<RawPayrollReportItemData>(
       getPayrollReportTableSchema({ sheetName: "30" })
+    );
+    const report40TableReader = new ExcelReader<RawPayrollReportItemData>(
+      getPayrollReportTableSchema({ sheetName: "40" })
     );
     const report50TableReader = new ExcelReader<RawPayrollReportItemData>(
       getPayrollReportTableSchema({ sheetName: "50" })
@@ -79,6 +88,9 @@ export class Container {
     const report100TableReader = new ExcelReader<RawPayrollReportItemData>(
       getPayrollReportTableSchema({ sheetName: "100" })
     );
+    const report170TableReader = new ExcelReader<RawPayrollReportItemData>(
+      getPayrollReportTableSchema({ sheetName: "170" })
+    );
     const exelRenderer = new ExcelRenderer(
       getCommentsTableSchema(monthAndYear, { startRow }),
       styleRenderer
@@ -87,10 +99,14 @@ export class Container {
 
     return new CreateCheckUnitPayrollUseCase(
       payrollReader,
+      report10TableReader,
+      report20TableReader,
       report30TableReader,
+      report40TableReader,
       report50TableReader,
       report70TableReader,
       report100TableReader,
+      report170TableReader,
       exelRenderer,
       rawPayrollDataVerifier
     );
