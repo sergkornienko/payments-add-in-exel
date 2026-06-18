@@ -17,10 +17,14 @@ import { PayrollDataValidator } from "./validation/RawPayrollData";
 export class CreateCheckUnitPayrollUseCase {
   constructor(
     private payrollTableReader: ITableReader<RawPayrollData>,
+    private report10TableReader: ITableReader<RawPayrollReportItemData>,
+    private report20TableReader: ITableReader<RawPayrollReportItemData>,
     private report30TableReader: ITableReader<RawPayrollReportItemData>,
+    private report40TableReader: ITableReader<RawPayrollReportItemData>,
     private report50TableReader: ITableReader<RawPayrollReportItemData>,
     private report70TableReader: ITableReader<RawPayrollReportItemData>,
     private report100TableReader: ITableReader<RawPayrollReportItemData>,
+    private report170TableReader: ITableReader<RawPayrollReportItemData>,
     private payrollTableRenderer: ITableRenderer<{ comment?: string }>,
     private rawPayrollDataVerifier: IRawPayrollDataVerifier
   ) {}
@@ -49,18 +53,34 @@ export class CreateCheckUnitPayrollUseCase {
 
   private async reportItemsToPayrolls(): Promise<Map<PayrollValue, PayrollItem[]>> {
     const payrolls = new Map();
-    const [report30RawData, report50RawData, report70RawData, report100RawData] = await Promise.all(
+    const [report10RawData, report20RawData, report30RawData, report40RawData, report50RawData, report70RawData, report100RawData, report170RawData] = await Promise.all(
       [
+        this.report10TableReader.read(),
+        this.report20TableReader.read(),
         this.report30TableReader.read(),
+        this.report40TableReader.read(),
         this.report50TableReader.read(),
         this.report70TableReader.read(),
         this.report100TableReader.read(),
+        this.report170TableReader.read(),
       ]
     );
 
     payrolls.set(
+      10,
+      PayrollParserService.parseDateRanges(this.fillMissingInfo(report10RawData), 10)
+    );
+    payrolls.set(
+      20,
+      PayrollParserService.parseDateRanges(this.fillMissingInfo(report20RawData), 20)
+    );
+    payrolls.set(
       30,
       PayrollParserService.parseDateRanges(this.fillMissingInfo(report30RawData), 30)
+    );
+    payrolls.set(
+      40,
+      PayrollParserService.parseDateRanges(this.fillMissingInfo(report40RawData), 40)
     );
     payrolls.set(
       50,
@@ -71,6 +91,7 @@ export class CreateCheckUnitPayrollUseCase {
       PayrollParserService.parseDateRanges(this.fillMissingInfo(report70RawData), 70)
     );
     payrolls.set(100, PayrollParserService.parseDateRanges(this.fillMissingInfo(report100RawData)));
+    payrolls.set(170, PayrollParserService.parseDateRanges(this.fillMissingInfo(report170RawData), 170));
 
     return payrolls;
   }

@@ -6,7 +6,16 @@ import { MonthStringSchema } from "../validation/RawInstructorsDataValidation";
 const mockPayrollTableReader = {
   read: jest.fn(),
 };
+const mockReport10TableReader = {
+  read: jest.fn(),
+};
+const mockReport20TableReader = {
+  read: jest.fn(),
+};
 const mockReport30TableReader = {
+  read: jest.fn(),
+};
+const mockReport40TableReader = {
   read: jest.fn(),
 };
 const mockReport50TableReader = {
@@ -16,6 +25,9 @@ const mockReport70TableReader = {
   read: jest.fn(),
 };
 const mockReport100TableReader = {
+  read: jest.fn(),
+};
+const mockReport170TableReader = {
   read: jest.fn(),
 };
 const mockPayrollTableRenderer = {
@@ -32,17 +44,21 @@ describe("CreateCheckUnitPayrollUseCase", () => {
     jest.clearAllMocks();
     useCase = new CreateCheckUnitPayrollUseCase(
       mockPayrollTableReader as any,
+      mockReport10TableReader as any,
+      mockReport20TableReader as any,
       mockReport30TableReader as any,
+      mockReport40TableReader as any,
       mockReport50TableReader as any,
       mockReport70TableReader as any,
       mockReport100TableReader as any,
+      mockReport170TableReader as any,
       mockPayrollTableRenderer as any,
       mockRawPayrollDataVerifier as any
     );
   });
 
   describe("checkUnitPayroll", () => {
-    it("should call all table readers and verifier", async () => {
+    it("should call all table readers including new ones (10, 20, 40, 170)", async () => {
       const rawData = [
         {
           taxPayerId: "1234567890",
@@ -60,19 +76,27 @@ describe("CreateCheckUnitPayrollUseCase", () => {
       ];
 
       mockPayrollTableReader.read.mockResolvedValue(rawData);
+      mockReport10TableReader.read.mockResolvedValue(reportData);
+      mockReport20TableReader.read.mockResolvedValue(reportData);
       mockReport30TableReader.read.mockResolvedValue(reportData);
+      mockReport40TableReader.read.mockResolvedValue(reportData);
       mockReport50TableReader.read.mockResolvedValue(reportData);
       mockReport70TableReader.read.mockResolvedValue(reportData);
       mockReport100TableReader.read.mockResolvedValue(reportData);
+      mockReport170TableReader.read.mockResolvedValue(reportData);
       mockRawPayrollDataVerifier.verify.mockResolvedValue(new Map());
 
       const result = await useCase.checkUnitPayroll("09.2024");
 
       expect(mockPayrollTableReader.read).toHaveBeenCalled();
+      expect(mockReport10TableReader.read).toHaveBeenCalled();
+      expect(mockReport20TableReader.read).toHaveBeenCalled();
       expect(mockReport30TableReader.read).toHaveBeenCalled();
+      expect(mockReport40TableReader.read).toHaveBeenCalled();
       expect(mockReport50TableReader.read).toHaveBeenCalled();
       expect(mockReport70TableReader.read).toHaveBeenCalled();
       expect(mockReport100TableReader.read).toHaveBeenCalled();
+      expect(mockReport170TableReader.read).toHaveBeenCalled();
       expect(mockRawPayrollDataVerifier.verify).toHaveBeenCalled();
       expect(mockPayrollTableRenderer.render).toHaveBeenCalled();
       expect(result).toEqual(UseCaseResult.Ok());
