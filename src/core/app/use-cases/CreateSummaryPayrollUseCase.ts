@@ -32,10 +32,14 @@ export class CreateSummaryPayrollUseCase {
     private tableReader: ITableReader<RawPayrollData>,
     private reasonsMapReader: ITableReader<Reason>,
     private overlapsTableRenderer: ITableRenderer<OverlapOutput>,
+    private table10Renderer: ITableRenderer<PayrollRenderItem>,
+    private table20Renderer: ITableRenderer<PayrollRenderItem>,
     private table30Renderer: ITableRenderer<PayrollRenderItem>,
+    private table40Renderer: ITableRenderer<PayrollRenderItem>,
     private table50Renderer: ITableRenderer<PayrollRenderItem>,
     private table70Renderer: ITableRenderer<PayrollRenderItem>,
-    private table100Renderer: ITableRenderer<PayrollRenderItem>
+    private table100Renderer: ITableRenderer<PayrollRenderItem>,
+    private table170Renderer: ITableRenderer<PayrollRenderItem>
   ) {}
 
   async generateSummary(monthAndYear: string): Promise<UseCaseResult> {
@@ -91,10 +95,14 @@ export class CreateSummaryPayrollUseCase {
 
   private async renderSummary(payrolls: Map<PayrollValue, PayrollItem[]>) {
     await Promise.all([
+      this.table10Renderer.render(this.getPayrollsRenderItems(payrolls, 10)),
+      this.table20Renderer.render(this.getPayrollsRenderItems(payrolls, 20)),
       this.table30Renderer.render(this.getPayrollsRenderItems(payrolls, 30)),
+      this.table40Renderer.render(this.getPayrollsRenderItems(payrolls, 40)),
       this.table50Renderer.render(this.getPayrollsRenderItems(payrolls, 50)),
       this.table70Renderer.render(this.getPayrollsRenderItems(payrolls, 70)),
       this.table100Renderer.render(this.getPayrollsRenderItems(payrolls, 100)),
+      this.table170Renderer.render(this.getPayrollsRenderItems(payrolls, 170)),
     ]);
   }
 

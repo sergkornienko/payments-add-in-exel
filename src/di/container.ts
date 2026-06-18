@@ -166,19 +166,27 @@ export class Container {
       SUMMARY_PAYROLL_OVERLAP_OUTPUT_SCHEMA,
       styleRenderer
     );
+    const exel10Renderer = new ExcelRenderer(getSummaryOutputPayrollSchema("10"), styleRenderer);
+    const exel20Renderer = new ExcelRenderer(getSummaryOutputPayrollSchema("20"), styleRenderer);
     const exel30Renderer = new ExcelRenderer(getSummaryOutputPayrollSchema("30"), styleRenderer);
+    const exel40Renderer = new ExcelRenderer(getSummaryOutputPayrollSchema("40"), styleRenderer);
     const exel50Renderer = new ExcelRenderer(getSummaryOutputPayrollSchema("50"), styleRenderer);
     const exel70Renderer = new ExcelRenderer(getSummaryOutputPayrollSchema("70"), styleRenderer);
     const exel100Renderer = new ExcelRenderer(getSummaryOutputPayrollSchema("100"), styleRenderer);
+    const exel170Renderer = new ExcelRenderer(getSummaryOutputPayrollSchema("170"), styleRenderer);
 
     return new CreateSummaryPayrollUseCase(
       exelReader,
       reasonExelReader,
       overlapsExelRenderer,
+      exel10Renderer,
+      exel20Renderer,
       exel30Renderer,
+      exel40Renderer,
       exel50Renderer,
       exel70Renderer,
-      exel100Renderer
+      exel100Renderer,
+      exel170Renderer
     );
   }
 
